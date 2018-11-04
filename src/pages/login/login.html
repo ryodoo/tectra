@@ -1,0 +1,13 @@
+<form [formGroup]="authForm">
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Adresse mail</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Mot de passe</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button full round (click)="onSubmitForm()">Soumettre</button>
+</form>

@@ -1,0 +1,154 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Rapport d'intervention</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="authForm">
+    <ion-list>
+      <ion-item-divider>Produit</ion-item-divider>
+      <ion-item>
+        <ion-label floating>Produit</ion-label>
+        <ion-input formControlName="produit"> </ion-input>
+      </ion-item>
+
+      <ion-item-divider>Piéces <ion-icon color="secondary" item-end ios="ios-add-circle" md="md-add-circle" (click)="addPiece()"></ion-icon>
+      </ion-item-divider>
+      <div formArrayName="pieces">
+        <ion-item *ngFor="let piece of getPiecesArray.controls; let i=index" [formGroupName]="i">
+            <ion-icon  item-end color="danger" name="trash"  (click)="deletePiece(i)"></ion-icon>
+          <ion-item>
+            <ion-input full placeholder="Piéce" formControlName="piece"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Prix" formControlName="prix"></ion-input>
+          </ion-item>
+        </ion-item>
+      </div>
+
+      <ion-item-divider>Main-d'œuvre</ion-item-divider>
+      <ion-item>
+        <ion-label floating>main-d'œuvre</ion-label>
+        <ion-input formControlName="main"> </ion-input>
+      </ion-item>
+
+      <ion-item-divider>Prix ramassage</ion-item-divider>
+      <ion-item>
+        <ion-label floating>Prix</ion-label>
+        <ion-input formControlName="ramassage"> </ion-input>
+      </ion-item>
+
+
+      <ion-item-divider>Images</ion-item-divider>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button (click)="onTakePhoto(0)" ion-button large icon-only class="camera">
+              <ion-item *ngIf="urlimage0; else iconn">
+                <img [src]="urlimage0" style="max-width: 100%">
+              </ion-item>
+              <ng-template #iconn>
+                <ion-icon name="camera"></ion-icon>
+              </ng-template>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button (click)="onTakePhoto(1)" ion-button large icon-only class="camera">
+              <ion-item *ngIf="urlimage1; else iconn1">
+                <img [src]="urlimage1" style="max-width: 100%">
+              </ion-item>
+              <ng-template #iconn1>
+                <ion-icon name="camera"></ion-icon>
+              </ng-template>
+            </button>
+          </ion-col>
+          <ion-col col-auto>
+            <button (click)="onTakePhoto(2)" ion-button large icon-only class="camera">
+              <ion-item *ngIf="urlimage2; else iconn2">
+                <img [src]="urlimage2" style="max-width: 100%">
+              </ion-item>
+              <ng-template #iconn2>
+                <ion-icon name="camera"></ion-icon>
+              </ng-template>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button (click)="onTakePhoto(3)" ion-button large icon-only class="camera">
+              <ion-item *ngIf="urlimage3; else iconn3">
+                <img [src]="urlimage3" style="max-width: 100%">
+              </ion-item>
+              <ng-template #iconn3>
+                <ion-icon name="camera"></ion-icon>
+              </ng-template>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-item-divider>Documents</ion-item-divider>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button (click)="onTakeDocument(0)" ion-button large icon-only class="camera">
+              <ion-item *ngIf="urlDocument0; else doc0">
+                <img [src]="urlDocument0" style="max-width: 100%">
+              </ion-item>
+              <ng-template #doc0>
+                <ion-icon name="document"></ion-icon>
+              </ng-template>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button (click)="onTakeDocument(1)" ion-button large icon-only class="camera">
+              <ion-item *ngIf="urlDocument1; else doc1">
+                <img [src]="urlDocument1" style="max-width: 100%">
+              </ion-item>
+              <ng-template #doc1>
+                <ion-icon name="document"></ion-icon>
+              </ng-template>
+            </button>
+          </ion-col>
+          <ion-col col-auto>
+            <button (click)="onTakeDocument(2)" ion-button large icon-only class="camera">
+              <ion-item *ngIf="urlDocument2; else doc2">
+                <img [src]="urlDocument2" style="max-width: 100%">
+              </ion-item>
+              <ng-template #doc2>
+                <ion-icon name="document"></ion-icon>
+              </ng-template>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button (click)="onTakeDocument(3)" ion-button large icon-only class="camera">
+              <ion-item *ngIf="urlDocument3; else doc3">
+                <img [src]="urlDocument3" style="max-width: 100%">
+              </ion-item>
+              <ng-template #doc3>
+                <ion-icon name="document"></ion-icon>
+              </ng-template>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-item-divider>Résolution du problème</ion-item-divider>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button ion-button full color="danger" [disabled]="!getType()" (click)="setType('non')">Non</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button full color="secondary" [disabled]="getType()" (click)="setType('oui')">Oui</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-item-divider>Diagnostic</ion-item-divider>
+      <ion-item>
+        <ion-textarea rows="5" formControlName="diagnostic"> </ion-textarea>
+      </ion-item>
+
+    </ion-list>
+    <button ion-button full (click)="onSubmitForm()">Soumettre</button>
+  </form>
+</ion-content>

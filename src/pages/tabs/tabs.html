@@ -1,0 +1,5 @@
+<ion-tabs [selectedIndex]="myIndex">
+  <ion-tab [root]="homePage" tabTitle="Home" tabIcon="home" ></ion-tab>
+  <ion-tab [root]="recmationsPage" tabTitle="Reclamations" tabIcon="star"
+  [tabBadge]="countreclamation()" tabBadgeStyle="danger"></ion-tab>
+</ion-tabs>

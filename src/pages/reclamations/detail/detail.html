@@ -1,0 +1,73 @@
+ <ion-header>
+        <ion-navbar>
+          <ion-title>{{reclamation.titre}}</ion-title>
+        </ion-navbar>
+      </ion-header>
+
+      <ion-content class="cards-bg social-cards">
+
+          <p id="demo"></p>
+
+          <div class="wrapper">
+            <div class="pie spinner"></div>
+            <div class="pie filler"></div>
+            <div class="mask"></div>
+          </div>
+
+        <button *ngIf="!hideMe" (click)="rapport(reclamation.id)" ion-button small icon-only  class="camera">
+          <ion-icon name="albums"></ion-icon>
+        </button>
+        <button (click)="rdv(reclamation.id,reclamation.client)" ion-button small icon-only  class="camera">
+          <ion-icon name="calendar"></ion-icon>
+        </button>
+        <button *ngIf="hideMe" (click)="commancer(reclamation.id)" ion-button small icon-only  class="camera">
+          <ion-icon name="add-circle"></ion-icon>
+        </button>
+      <ion-card>
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="https://ionicframework.com/dist/preview-app/www/assets/img/marty-avatar.png">
+          </ion-avatar>
+          <h2>Marty McFly</h2>
+          <p>November 5, 1955</p>
+        </ion-item>
+
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/advance-card-bttf.png">
+
+        <ion-card-content>
+          <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+        </ion-card-content>
+
+        <ion-row>
+          <ion-col>
+            <button ion-button color="primary" clear small icon-start>
+              <ion-icon name='thumbs-up'></ion-icon>
+              12 Likes
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button color="primary" clear small icon-start>
+              <ion-icon name='text'></ion-icon>
+              4 Comments
+            </button>
+          </ion-col>
+          <ion-col align-self-center text-center>
+            <ion-note>
+              11h ago
+            </ion-note>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+
+
+
+
+      </ion-content>
+
+      <style>
+        .social-cards ion-col {
+          padding: 0;
+        }
+      </style>

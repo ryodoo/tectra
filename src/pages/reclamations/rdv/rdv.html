@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Local Notification
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form >
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-input type="text"  name="description"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Date</ion-label>
+        <ion-datetime displayFormat="DD/MM/YY" pickerFormat="D MMMM YYYY"  name="date" [(ngModel)]="date"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Heure</ion-label>
+        <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm"  name="heure" [(ngModel)]="heure"></ion-datetime>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button ion-button full round (click)="submit()">Programer un Rappel</button>
+    </div>
+  </form>
+</ion-content>
