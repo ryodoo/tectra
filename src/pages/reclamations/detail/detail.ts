@@ -1,3 +1,5 @@
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
+import { Geolocation } from '@ionic-native/geolocation';
 import { Intervention } from './../../../models/intervention';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
@@ -20,8 +22,35 @@ export class detailPage {
   data: Observable<any>;
   hideMe=true;
   id :any;
+  latitude: any;
+  longitude: any;
   constructor(public global : globaldata,public navCtrl: NavController, public navParams: NavParams,
-     public http: HttpClient , public alertCtrl: AlertController) {
+     public http: HttpClient , public alertCtrl: AlertController,private geolocation: Geolocation,
+     public locationAccuracy: LocationAccuracy) {
+      this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+
+        if (canRequest) {
+          // the accuracy option will be ignored by iOS
+          this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+            () => console.log('Request successful'),
+            error => console.log('Error requesting location permissions', error)
+          );
+        }
+
+      });
+      var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      };
+      this.geolocation.getCurrentPosition(options).then((resp) => {
+        console.log(resp);
+        console.log("laltutude" + resp.coords.latitude + " long" + resp.coords.longitude);
+        this.latitude = resp.coords.latitude;
+        this.longitude = resp.coords.longitude;
+      }).catch((error) => {
+        console.log('hé ra erreur yah ', error);
+      });
     //console.log(this.global.reclamations);
   }
 
@@ -80,17 +109,19 @@ export class detailPage {
 
   rapport(id)
   {
+    this.ngOnDestroy();
     this.navCtrl.push(rapportPage, {reclamation_id: id});
   }
   rdv(id,client)
   {
+    this.ngOnDestroy();
     this.navCtrl.push(RdvPage, {reclamation_id: id,client: client});
   }
 
   commancer(id)
   {
     this.hideMe=false;
-    let url = this.global.linkSetDebutRapport + id+"/"+this.global.emei;
+    let url = this.global.linkSetDebutRapport + id+"/"+this.global.emei+"/"+this.latitude+"/"+this.longitude;
     console.log(url);
     this.data = this.http.get(url);
     this.data.subscribe(data => {

@@ -1,7 +1,7 @@
 import { Base64 } from '@ionic-native/base64';
 import { Camera } from '@ionic-native/camera';
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController, normalizeURL } from 'ionic-angular';
+import { NavController, NavParams, AlertController, normalizeURL } from 'ionic-angular';
 import { globaldata } from '../../../services/data.service';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
@@ -35,7 +35,7 @@ export class rapportPage {
 
   constructor(public http: HttpClient, public navCtrl: NavController, public navParams: NavParams,
     public global: globaldata, private formBuilder: FormBuilder, private geolocation: Geolocation,
-    private alertCtrl: AlertController, public camera: Camera, public toast: ToastController,
+    private alertCtrl: AlertController, public camera: Camera,
     public locationAccuracy: LocationAccuracy, public base64: Base64) {
     this.type = "non";
   }
@@ -138,11 +138,7 @@ export class rapportPage {
       }
     ).catch(
       (error) => {
-        this.toast.create({
-          message: error.message,
-          duration: 3000,
-          position: 'bottom'
-        }).present();
+        console.log("erreur"+error);
       }
     )
   }
@@ -171,11 +167,7 @@ export class rapportPage {
       }
     ).catch(
       (error) => {
-        this.toast.create({
-          message: error.message,
-          duration: 3000,
-          position: 'bottom'
-        }).present();
+       console.log("erreur"+error);
       }
     )
   }
@@ -295,20 +287,20 @@ export class rapportPage {
     }
     else
       go++;
-
-
+      console.log(go);
+    if(go==9)
+      this.send(datasend,9);
 
   }
   send(datasend: FormData, go: number) {
     console.log(go+" hé ana ldakhel");
-    if (go == 8) {
+    if (go == 9) {
       let url = this.global.linkSetRapport;
       this.data = this.http.post(url, datasend);
       this.data.subscribe(dataa => {
-        console.log(dataa["message"]);
         let alert = this.alertCtrl.create({
           title: 'Rapport envoyé',
-          subTitle: "Merci",
+          subTitle: "",
           buttons: ['OK']
         });
         alert.present();
